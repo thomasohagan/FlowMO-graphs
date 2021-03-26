@@ -75,7 +75,16 @@ class Shortest_Path(gpflow.kernels.Kernel):
                     G2.append(read_smiles(h))
 
 
-        kernel = tf.ones([len(G1), len(G2)], dtype=tf.dtypes.float64)
+        kernel = np.zeros([len(G1), len(G2)], dtype=np.float64)
+        for i in range(len(G1)):
+            start = time.time()
+            for j in range(len(G2)):
+                kernel[i, j] = nx.wiener_index(G1[i]) * nx.wiener_index(G2[j])
+            print("time for loop", i, time.time() - start)
+
+        kernel = tf.convert_to_tensor(kernel)
+
+        ##kernel = tf.ones([len(G1), len(G2)], dtype=tf.dtypes.float64)
 
         return self.variance * kernel
 
