@@ -12,6 +12,189 @@ import numpy as np
 from tensorflow_probability import bijectors as tfb
 from pysmiles import read_smiles
 import time
+from rdkit import Chem
+from grakel.kernels import RandomWalk
+import grakel
+from gklearn.kernels import PathUpToH, ShortestPath
+import multiprocessing
+
+
+
+
+def wiener_index(m):
+    res = 0
+    amat = Chem.rdmolops.GetDistanceMatrix(m)
+    for i in range(m.GetNumAtoms()):
+        for j in range(i + 1, m.GetNumAtoms()):
+            res += amat[i][j]
+    return res
+
+class gklearntest(gpflow.kernels.Kernel):
+    def __init__(self):
+        super().__init__()
+        self.variance = gpflow.Parameter(1.0, transform=positive())
+
+    def K(self, X, X2=None):
+
+        G1 = []
+        if str(type(X[1])) == "<class 'numpy.ndarray'>":
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+        else:
+            X = X.numpy()
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+
+        if X2 is None:
+            G2 = G1
+
+        else:
+            G2 = []
+            if str(type(X2[1])) == "<class 'numpy.ndarray'>":
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append(read_smiles(h))
+
+            elif str(type(X2[1])) == "<class \'numpy.str_\'>":
+                for string2 in X2:
+                    G2.append(read_smiles(string2))
+
+            else:
+                X2 = X2.numpy()
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append((read_smiles(h)))
+
+        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
+        graph_kernel = PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
+        kernel = []
+        for i in range(len(G1)):
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
+            print(kernel_list)
+            kernel.append(kernel_list)
+
+        kernel = tf.convert_to_tensor(kernel)
+
+        return self.variance * kernel
+
+    def K_diag(self, X):
+        return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
+
+
+class GrakelSP(gpflow.kernels.Kernel):
+    def __init__(self):
+        super().__init__()
+        self.variance = gpflow.Parameter(1.0, transform=positive())
+
+    def K(self, X, X2=None):
+
+        G1 = []
+        if str(type(X[1])) == "<class 'numpy.ndarray'>":
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+        else:
+            X = X.numpy()
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+
+        if X2 is None:
+            G2 = G1
+
+        else:
+            G2 = []
+            if str(type(X2[1])) == "<class 'numpy.ndarray'>":
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append(read_smiles(h))
+
+            elif str(type(X2[1])) == "<class \'numpy.str_\'>":
+                for string2 in X2:
+                    G2.append(read_smiles(string2))
+
+            else:
+                X2 = X2.numpy()
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append((read_smiles(h)))
+
+        sp_kernel = RandomWalk(normalize=True)
+
+        G1 = grakel.graph_from_networkx(G1)
+        G2 = grakel.graph_from_networkx(G2)
+
+        print("hello")
+        start_time1 = time.time()
+
+        K_train = sp_kernel.fit_transform(G1)
+
+        print("hello2, time=" , time.time() - start_time1)
+
+        if X2 is None:
+            kernel = K_train
+
+        else:
+            print("hello3")
+            start_time2 = time.time()
+            kernel = sp_kernel.transform(G2)
+            print("hello4, time=" , time.time() - start_time2)
+
+        kernel = tf.convert_to_tensor(kernel)
+        print("shape is" , tf.shape(kernel))
+
+        return self.variance * kernel
+
+    def K_diag(self, X):
+        return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
+
+
+class RDKit_Shortest_Path(gpflow.kernels.Kernel):
+    def __init__(self):
+        super().__init__()
+        self.variance = gpflow.Parameter(1.0, transform=positive())
+
+
+    def K(self, X, X2=None):
+
+        if X2 is None:
+            X2 = X
+
+        if str(type(X[1])) == "<class 'numpy.ndarray'>":
+            mol = [Chem.MolFromSmiles(smiles) for smiles in X]
+
+        else:
+            mol = [Chem.MolFromSmiles(smiles) for smiles in X.numpy()]
+
+        if X2 is None:
+            mol2 = mol
+
+        else:
+            if str(type(X2[1])) == "<class 'numpy.ndarray'>":
+                mol2 = [Chem.MolFromSmiles(smiles) for smiles in X2]
+
+            elif str(type(X2[1])) == "<class \'numpy.str_\'>":
+                mol2 = [Chem.MolFromSmiles(smiles) for smiles in X2]
+
+            else:
+                mol2 = [Chem.MolFromSmiles(smiles) for smiles in X2.numpy()]
+
+        kernel = np.zeros([len(mol), len(mol2)], dtype=np.float64)
+        for i in range(len(mol)):
+            start = time.time()
+            for j in range(len(mol2)):
+                kernel[i, j] = wiener_index(mol[i]) * wiener_index(mol2[j])
+            print("time for loop", i, time.time() - start)
+
+        kernel = tf.convert_to_tensor(kernel)
+
+
+        return self.variance * kernel
+
+    def K_diag(self, X):
+        return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
 
 class Shortest_Path(gpflow.kernels.Kernel):
     def __init__(self):
@@ -22,6 +205,8 @@ class Shortest_Path(gpflow.kernels.Kernel):
 
         if X2 is None:
             X2 = X
+
+
         ##G1 = []
         ##if str(type(X[1])) == "<class 'numpy.ndarray'>":
         ##for matrix in X:
@@ -84,7 +269,6 @@ class Shortest_Path(gpflow.kernels.Kernel):
 
         kernel = tf.convert_to_tensor(kernel)
 
-        ##kernel = tf.ones([len(G1), len(G2)], dtype=tf.dtypes.float64)
 
         return self.variance * kernel
 

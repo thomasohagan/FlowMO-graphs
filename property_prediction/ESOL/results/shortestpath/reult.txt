@@ -1,0 +1,10 @@
+Standardised Train RMSE: 1.970
+Train RMSE: 1.970
+
+R^2: 0.099
+RMSE: 1.817
+MAE: 1.401
+
+mean R^2: 0.0985 +- 0.0000
+mean RMSE: 1.8175 +- 0.0000
+mean MAE: 1.4011 +- 0.0000

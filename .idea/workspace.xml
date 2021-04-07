@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6af4252-6101-4f7a-a9ff-06ef26a3eb30" name="Default Changelist" comment="latest">
-      <change afterPath="$PROJECT_DIR$/property_prediction/ESOL/results/shortestpath/Graph_confidence_curve_rmse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/property_prediction/graphkittest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GP/kernels.py" beforeDir="false" afterPath="$PROJECT_DIR$/GP/kernels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/property_prediction/ESOL/results/shortestpath/Graph_confidence_curve_rmse.png" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/ESOL/results/shortestpath/Graph_confidence_curve_rmse.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +27,8 @@
   <component name="ProjectId" id="1onj3CFW2h0JGDOPZxCmogtLQOM" />
   <component name="PropertiesComponent">
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FlowMO-master-copy" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.notifications" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -47,6 +48,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.predict_with_shortestpath">
+    <configuration name="graphkittest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="FlowMO-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/property_prediction" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/property_prediction/graphkittest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="predict_with_shortestpath" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="FlowMO-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -92,6 +114,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.predict_with_shortestpath" />
+        <item itemvalue="Python.graphkittest" />
         <item itemvalue="Python.predict_with_tanimoto" />
       </list>
     </recent_temporary>
@@ -148,11 +171,6 @@
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://C:/ProgramData/Anaconda3/envs/gp_molecule/Lib/site-packages/gpflow/models/gpr.py</url>
-          <line>102</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/property_prediction/predict_with_tanimoto.py</url>
           <line>141</line>
           <option name="timeStamp" value="75" />
@@ -166,5 +184,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="knn" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

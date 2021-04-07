@@ -14,7 +14,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 
-from GP.kernels import Shortest_Path
+
+from GP.kernels import RDKit_Shortest_Path, GrakelSP, Shortest_Path, gklearntest
 from property_prediction.data_utils import TaskDataLoader
 
 from gpflow.base import Parameter
@@ -80,7 +81,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf):
             X_test = np.asarray(X_test)
 
 
-            k = Shortest_Path()
+            k = gklearntest()
             m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k, noise_variance=1)
 
 
