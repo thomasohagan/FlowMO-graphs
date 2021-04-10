@@ -215,7 +215,7 @@ if __name__ == '__main__':
     parser.add_argument('-rms', '--use_rmse_conf', type=bool, default=True,
                         help='bool specifying whether to compute the rmse confidence-error curves or the mae '
                              'confidence-error curves. True is the option for rmse.')
-    parser.add_argument('-k', '--kernel', type=str, default='RDKit_Shortest_Path',
+    parser.add_argument('-k', '--kernel', type=str, default='PUTH',
                         help='str specifying the kernel to be used. One of [ShortestPath, ]')
 
     args = parser.parse_args()
