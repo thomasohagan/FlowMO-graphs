@@ -1,28 +1,22 @@
-# Author: Ryan-Rhys Griffiths
+# Author: Ryan-Rhys Griffiths & Thomas O'Hagan
 """
 Script for training a model to predict properties in the photoswitch dataset using Gaussian Process Regression.
 """
 
 import argparse
-
 import tensorflow as tf
 import gpflow
-from gpflow.mean_functions import Constant, MeanFunction
+from gpflow.mean_functions import Constant
 from gpflow.utilities import print_summary
 from matplotlib import pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
-
-
-from GP.kernels import RDKit_Shortest_Path, GrakelSP, Shortest_Path, gklearntest
 from property_prediction.data_utils import TaskDataLoader
-
-from gpflow.base import Parameter
-from gpflow.config import default_int
+import GP.kernels
 
 
-def main(path, task, n_trials, test_set_size, use_rmse_conf):
+def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     """
     :param path: str specifying path to dataset.
     :param task: str specifying the task. One of ['Photoswitch', 'ESOL', 'FreeSolv', 'Lipophilicity']
@@ -30,6 +24,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf):
     :param test_set_size: float in range [0, 1] specifying fraction of dataset to use as test set
     :param use_rmse_conf: bool specifying whether to compute the rmse confidence-error curves or the mae confidence-
     error curves. True is the option for rmse.
+    :param kernel: str specifying the kernel to be used. One of ['ShortestPath', ]
     """
 
     data_loader = TaskDataLoader(task, path)
@@ -80,8 +75,11 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf):
             X_train = np.asarray(X_train)
             X_test = np.asarray(X_test)
 
+            if kernel == 'PUTH':
+                k = GP.kernels.PUTH()
+            elif kernel == 'RandomWalk':
+                k = GP.kernels.sdvsd()
 
-            k = gklearntest()
             m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k, noise_variance=1)
 
 
@@ -217,7 +215,9 @@ if __name__ == '__main__':
     parser.add_argument('-rms', '--use_rmse_conf', type=bool, default=True,
                         help='bool specifying whether to compute the rmse confidence-error curves or the mae '
                              'confidence-error curves. True is the option for rmse.')
+    parser.add_argument('-k', '--kernel', type=str, default='RDKit_Shortest_Path',
+                        help='str specifying the kernel to be used. One of [ShortestPath, ]')
 
     args = parser.parse_args()
 
-    main(args.path, args.task, args.n_trials, args.test_set_size, args.use_rmse_conf)
+    main(args.path, args.task, args.n_trials, args.test_set_size, args.use_rmse_conf, args.kernel)

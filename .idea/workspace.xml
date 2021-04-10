@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6af4252-6101-4f7a-a9ff-06ef26a3eb30" name="Default Changelist" comment="latest">
-      <change afterPath="$PROJECT_DIR$/property_prediction/graphkittest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/property_prediction/graph_kernels_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GP/kernels.py" beforeDir="false" afterPath="$PROJECT_DIR$/GP/kernels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/property_prediction/ESOL/results/shortestpath/Graph_confidence_curve_rmse.png" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/ESOL/results/shortestpath/Graph_confidence_curve_rmse.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/photoswitches.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/Photoswitch.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +27,7 @@
   <component name="ProjectId" id="1onj3CFW2h0JGDOPZxCmogtLQOM" />
   <component name="PropertiesComponent">
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FlowMO-master-copy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FlowMO-master-original" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.notifications" />
   </component>
   <component name="RecentsManager">
