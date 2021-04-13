@@ -167,35 +167,6 @@ def featurise_mols(smiles_list, representation, bond_radius=3, nBits=2048):
         X = np.concatenate((X, X1), axis=1)
 
 
-    elif representation == 'graph':
-        # https://github.com/dakoner/keras-molecules/blob/dbbb790e74e406faa70b13e8be8104d9e938eba2/convert_rdkit_to_networkx.py
-
-        X = []
-
-        for k in range(len(smiles_list)):
-            smiles = smiles_list[k]
-            for i in range(len(smiles)):
-                G = nx.Graph()
-                for atom in smiles.GetAtoms():
-                    G.add_node(atom.GetIdx(),
-                       atomic_num=atom.GetAtomicNum(),
-                       formal_charge=atom.GetFormalCharge(),
-                       chiral_tag=atom.GetChiralTag(),
-                       hybridization=atom.GetHybridization(),
-                       num_explicit_hs=atom.GetNumExplicitHs(),
-                       is_aromatic=atom.GetIsAromatic())
-                for bond in smiles.GetBonds():
-                    G.add_edge(bond.GetBeginAtomIdx(),
-                       bond.GetEndAtomIdx(),
-                       bond_type=bond.GetBondType())
-                return G
-
-
-        return X
-
-    elif representation == 'graph2':
-        X = [read_smiles(smiles) for smiles in smiles_list]
-
     else:
 
         # SMILES

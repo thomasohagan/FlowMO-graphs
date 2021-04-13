@@ -16,6 +16,9 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from GP.kernels import Tanimoto
 from property_prediction.data_utils import transform_data, TaskDataLoader, featurise_mols
 
+from smiles_enumeration.smiles_x_enum import augmentation
+import time
+
 
 def main(path, task, representation, use_pca, n_trials, test_set_size, use_rmse_conf, precompute_repr):
     """
@@ -32,7 +35,18 @@ def main(path, task, representation, use_pca, n_trials, test_set_size, use_rmse_
 
     data_loader = TaskDataLoader(task, path)
     smiles_list, y = data_loader.load_property_data()
+
+    print('\nBeginning augmentation...')
+    start_time = time.time()
+    x, smiles_card, y = augmentation(np.array(smiles_list), y, 15, canon=False, rotate=True)
+    print('\nFinished augmentation after', time.time() - start_time)
+
+    print('\nBeginning representation...')
+    start_time = time.time()
+    X = featurise_mols(x, representation)
+    print('\nFinished representation after', time.time() - start_time)
     X = featurise_mols(smiles_list, representation)
+    print('\nFinished representation after', time.time() - start_time)
 
     if precompute_repr:
         if representation == 'SMILES':
@@ -104,16 +118,8 @@ def main(path, task, representation, use_pca, n_trials, test_set_size, use_rmse_
 
             _, y_train, _, y_test, y_scaler = transform_data(X_train, y_train, X_test, y_test, n_components=n_components, use_pca=use_pca)
 
-
-
-            print(type(X_train))
-            print(X_train)
-            print(X_train[0])
-            print(type(X_train[0]))
             X_train = X_train.astype(np.float64)
             X_test = X_test.astype(np.float64)
-            print(type(X_train))
-            print(type(X_train[0]))
 
             k = Tanimoto()
             m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k, noise_variance=1)
@@ -250,7 +256,7 @@ if __name__ == '__main__':
     parser.add_argument('-rms', '--use_rmse_conf', type=bool, default=True,
                         help='bool specifying whether to compute the rmse confidence-error curves or the mae '
                              'confidence-error curves. True is the option for rmse.')
-    parser.add_argument('-pr', '--precompute_repr', type=bool, default=True,
+    parser.add_argument('-pr', '--precompute_repr', type=bool, default=False,
                         help='bool indicating whether to precompute representations')
 
     args = parser.parse_args()

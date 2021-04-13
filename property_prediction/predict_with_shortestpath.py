@@ -143,9 +143,22 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     rmse_list = np.array(rmse_list)
     mae_list = np.array(mae_list)
 
+    print("\nDataset: {}".format(task))
+    print("\nKernel: {}".format(kernel))
     print("\nmean R^2: {:.4f} +- {:.4f}".format(np.mean(r2_list), np.std(r2_list)/np.sqrt(len(r2_list))))
     print("mean RMSE: {:.4f} +- {:.4f}".format(np.mean(rmse_list), np.std(rmse_list)/np.sqrt(len(rmse_list))))
     print("mean MAE: {:.4f} +- {:.4f}\n".format(np.mean(mae_list), np.std(mae_list)/np.sqrt(len(mae_list))))
+
+    #### modify to include kernel and dataset info in outputs, use {} command
+
+    outF = open("results.txt", "a")
+    outF.write("\n")
+    outF.write("\nDataset: {}".format(task))
+    outF.write("\nKernel: {}".format(kernel))
+    outF.write("\nmean R^2: {:.4f} +- {:.4f}".format(np.mean(r2_list), np.std(r2_list)/np.sqrt(len(r2_list))))
+    outF.write("\nmean RMSE: {:.4f} +- {:.4f}".format(np.mean(rmse_list), np.std(rmse_list)/np.sqrt(len(rmse_list))))
+    outF.write("\nmean MAE: {:.4f} +- {:.4f}\n".format(np.mean(mae_list), np.std(mae_list)/np.sqrt(len(mae_list))))
+    outF.close()
 
     # Plot confidence-error curves
 

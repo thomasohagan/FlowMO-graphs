@@ -14,4 +14,3 @@ for graph_kernel in GRAPH_KERNELS:
         task = m.group(1)
         path = 'FlowMO-graphs/datasets/', str(filename)
         predict(path, task, 1, 0.2, True, graph_kernel)
-        ###code to save results in array or something
