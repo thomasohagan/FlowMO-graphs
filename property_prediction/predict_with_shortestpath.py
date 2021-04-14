@@ -17,6 +17,7 @@ import GP.kernels
 
 config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
+tf.compat.v1.enable_eager_execution()
 with tf.compat.v1.Session(config=config) as sess:
     def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
         """
@@ -28,6 +29,8 @@ with tf.compat.v1.Session(config=config) as sess:
         error curves. True is the option for rmse.
         :param kernel: str specifying the kernel to be used. One of ['ShortestPath', ]
         """
+
+        tf.compat.v1.enable_eager_execution()
         data_loader = TaskDataLoader(task, path)
         smiles_list, y = data_loader.load_property_data()
 
