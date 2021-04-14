@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-p', '--path', type=str, default='../datasets/ESOL.csv', ####rremoved .. /local/scratch/to308/FlowMO-graphs/
+    parser.add_argument('-p', '--path', type=str, default='./datasets/ESOL.csv', ####rremoved .. /local/scratch/to308/FlowMO-graphs/
                         help='Path to the csv file for the task.')
     parser.add_argument('-t', '--task', type=str, default='ESOL',
                         help='str specifying the task. One of [Photoswitch, ESOL, FreeSolv, Lipophilicity].')
