@@ -15,10 +15,6 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from property_prediction.data_utils import TaskDataLoader
 import GP.kernels
 
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.allow_growth = True
-with tf.compat.v1.Session(config=config) as sess:
-
 def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     """
     :param path: str specifying path to dataset.
@@ -29,6 +25,11 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     error curves. True is the option for rmse.
     :param kernel: str specifying the kernel to be used. One of ['ShortestPath', ]
     """
+
+    config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True
+    with tf.compat.v1.Session(config=config) as sess:
+
 
     data_loader = TaskDataLoader(task, path)
     smiles_list, y = data_loader.load_property_data()
