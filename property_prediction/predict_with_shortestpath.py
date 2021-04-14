@@ -30,6 +30,7 @@ with tf.compat.v1.Session(config=config) as sess:
         :param kernel: str specifying the kernel to be used. One of ['ShortestPath', ]
         """
 
+        tf.compat.v1.enable_eager_execution(config=config)
         print("Executing eagerly:", tf.executing_eagerly())
         data_loader = TaskDataLoader(task, path)
         smiles_list, y = data_loader.load_property_data()
