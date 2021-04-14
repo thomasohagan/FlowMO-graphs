@@ -15,6 +15,9 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from property_prediction.data_utils import TaskDataLoader
 import GP.kernels
 
+config = tf.compat.v1.ConfigProto()
+config.gpu_options.allow_growth = True
+with tf.compat.v1.Session(config=config) as sess:
 
 def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     """
@@ -217,7 +220,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-p', '--path', type=str, default='./datasets/ESOL.csv', ####rremoved .. /local/scratch/to308/FlowMO-graphs/
+    parser.add_argument('-p', '--path', type=str, default='./datasets/ESOL.csv', ####changed frm .. to . /local/scratch/to308/FlowMO-graphs/
                         help='Path to the csv file for the task.')
     parser.add_argument('-t', '--task', type=str, default='ESOL',
                         help='str specifying the task. One of [Photoswitch, ESOL, FreeSolv, Lipophilicity].')

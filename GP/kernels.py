@@ -385,7 +385,6 @@ class PUTH(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G1)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print(kernel_list)
             kernel.append(kernel_list)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
