@@ -2,11 +2,10 @@
 """
 Module containing data loading utility functions.
 """
-import networkx as nx
-from pysmiles import read_smiles
+
 import numpy as np
 import pandas as pd
-from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, rdmolops
+#from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, rdmolops
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
