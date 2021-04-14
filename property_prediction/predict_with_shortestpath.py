@@ -17,6 +17,7 @@ import GP.kernels
 
 config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
+tf.compat.v1.enable_eager_execution(config=config)
 with tf.compat.v1.Session(config=config) as sess:
     def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
         """
