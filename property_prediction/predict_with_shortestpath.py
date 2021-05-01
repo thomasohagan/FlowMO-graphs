@@ -35,14 +35,10 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     data_loader = TaskDataLoader(task, path)
     smiles_list, y = data_loader.load_property_data()
 
-    print("before", smiles_list)
-
-
     # List truncation for faster computation
     N = 20
     smiles_list = smiles_list[0 : N]
-
-    print("after", smiles_list)
+    y = y[0 : N]
 
     m = None
 
@@ -230,7 +226,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-p', '--path', type=str, default='./datasets/ESOL.csv',
+    parser.add_argument('-p', '--path', type=str, default='./datasets/ESOL.csv',  # .. for pc and . for colab and maybe ubuntu
                         ####changed frm .. to . /local/scratch/to308/FlowMO-graphs/
                         help='Path to the csv file for the task.')
     parser.add_argument('-t', '--task', type=str, default='ESOL',
