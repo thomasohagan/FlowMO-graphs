@@ -35,10 +35,14 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     data_loader = TaskDataLoader(task, path)
     smiles_list, y = data_loader.load_property_data()
 
+    print("before", smiles_list)
+
 
     # List truncation for faster computation
     N = 20
     smiles_list = smiles_list[0 : N]
+
+    print("after", smiles_list)
 
     m = None
 
