@@ -63,7 +63,7 @@ class CW(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.commonwalkkernel(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
@@ -116,7 +116,7 @@ class MK(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.marginalizedkernel(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
@@ -169,7 +169,7 @@ class RW(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
@@ -222,7 +222,7 @@ class SP(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options, )
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered',
                                                          n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
@@ -276,7 +276,7 @@ class SSP(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
@@ -329,7 +329,7 @@ class T(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
@@ -383,7 +383,7 @@ class PUTH(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print("\nLoop", i)
             kernel.append(kernel_list)
@@ -436,7 +436,7 @@ class WL(gpflow.kernels.Kernel):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(G1)):
+        for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
