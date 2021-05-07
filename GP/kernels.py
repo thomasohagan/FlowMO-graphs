@@ -401,8 +401,7 @@ class PUTH(gpflow.kernels.Kernel):
         graph_kernel = gklearn.kernels.PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(X)):
-            kernel_list, run_time = graph_kernel.compute(X[i], X[i], parallel='imap_unordered',
-                                                         n_jobs=multiprocessing.cpu_count(), verbose=2)
+            kernel_list, run_time = graph_kernel.compute(X[i], X[i], verbose=2)
             kernel.append(kernel_list)
             kernel = tf.transpose(kernel)
 
