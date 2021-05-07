@@ -398,12 +398,13 @@ class PUTH(gpflow.kernels.Kernel):
         #return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
     def K_diag(self, X):
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
-        graph_kernel = gklearn.kernels.marginalizedkernel(node_labels=[], edge_labels=[], **kernel_options,)
+        graph_kernel = gklearn.kernels.PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(X)):
-            kernel_list, run_time = graph_kernel.compute(X[i], X[i], parallel='imap_unordered',
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered',
                                                          n_jobs=multiprocessing.cpu_count(), verbose=2)
             kernel.append(kernel_list)
+            kernel = tf.transpose(kernel)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         return self.variance * kernel
