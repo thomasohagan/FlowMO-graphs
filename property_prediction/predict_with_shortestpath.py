@@ -86,7 +86,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
             if kernel == 'PUTH':
                 k = GP.kernels.PUTH()
             elif kernel == 'RandomWalk':
-                k = GP.kernels.sdvsd()
+                k = GP.kernels.sdvsd() ### use format {} kernel
 
             m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k,
                                   noise_variance=1)
