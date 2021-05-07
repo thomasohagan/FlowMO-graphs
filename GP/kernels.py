@@ -385,11 +385,15 @@ class PUTH(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print("\nLoop", i)
+            print("\nLoop", i, kernel_list)
             kernel.append(kernel_list)
+            print("kernel so far is ", kernel)
 
+        print("kernel after loop", kernel)
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
+        print("kernel after conversion", kernel)
         kernel = tf.transpose(kernel)
+        print("kernel after transpose" , kernel)
 
         return self.variance * kernel
 
