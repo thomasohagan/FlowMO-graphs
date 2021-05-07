@@ -21,7 +21,7 @@ import GP.kernels
 #print("Executing eagerly:", tf.executing_eagerly())
 #with tf.compat.v1.Session(config=config) as sess:
 
-def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
+def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     """
     :param path: str specifying path to dataset.
     :param task: str specifying the task. One of ['Photoswitch', 'ESOL', 'FreeSolv', 'Lipophilicity']
@@ -36,7 +36,6 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel):
     smiles_list, y = data_loader.load_property_data()
 
     # List truncation for faster computation
-    N = 20
     smiles_list = smiles_list[0 : N]
     y = y[0 : N]
 
@@ -240,7 +239,9 @@ if __name__ == '__main__':
                              'confidence-error curves. True is the option for rmse.')
     parser.add_argument('-k', '--kernel', type=str, default='PUTH',
                         help='str specifying the kernel to be used. One of [ShortestPath, ]')
+    parser.add_argument('-N', '--N', type=int, default='20',
+                        help='smiles list')
 
     args = parser.parse_args()
 
-    main(args.path, args.task, args.n_trials, args.test_set_size, args.use_rmse_conf, args.kernel)
+    main(args.path, args.task, args.n_trials, args.test_set_size, args.use_rmse_conf, args.kernel, args.N)
