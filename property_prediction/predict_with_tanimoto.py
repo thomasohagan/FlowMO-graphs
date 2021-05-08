@@ -45,8 +45,6 @@ def main(path, task, representation, use_pca, n_trials, test_set_size, use_rmse_
     start_time = time.time()
     X = featurise_mols(x, representation)
     print('\nFinished representation after', time.time() - start_time)
-    X = featurise_mols(smiles_list, representation)
-    print('\nFinished representation after', time.time() - start_time)
 
     if precompute_repr:
         if representation == 'SMILES':

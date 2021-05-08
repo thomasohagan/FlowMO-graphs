@@ -84,11 +84,30 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
 
             if kernel == 'PUTH':
                 k = GP.kernels.PUTH()
-            elif kernel == 'RandomWalk':
-                k = GP.kernels.sdvsd() ### use format {} kernel
 
-            m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k,
-                                  noise_variance=1)
+            elif kernel == 'CommonWalk':
+                k = GP.kernels.CW()
+
+            elif kernel == 'MarginalizedKernel':
+                k = GP.kernels.MK()
+
+            elif kernel == 'RandomWalk':
+                k = GP.kernels.RW()
+
+            elif kernel == 'ShortestPath':
+                k = GP.kernels.SP()
+
+            elif kernel == 'StructuralShortestPath':
+                k = GP.kernels.SSP()
+
+            elif kernel == 'Treelet':
+                k = GP.kernels.T()
+
+            elif kernel == 'WeisfeilerLehman':
+                k = GP.kernels.WL()
+
+
+            m = gpflow.models.GPR(data=(X_train, y_train), mean_function=Constant(np.mean(y_train)), kernel=k, noise_variance=1)
 
             # Optimise the kernel variance and noise level by the marginal likelihood
 
