@@ -85,8 +85,11 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
             if kernel == 'PUTH':
                 k = GP.kernels.PUTH()
 
-            elif kernel == 'CommonWalk':
-                k = GP.kernels.CW()
+            elif kernel == 'CommonWalkGeo':
+                k = GP.kernels.CWgeo()
+
+            elif kernel == 'CommonWalkExp':
+                k = GP.kernels.CWexp()
 
             elif kernel == 'MarginalizedKernel':
                 k = GP.kernels.MK()

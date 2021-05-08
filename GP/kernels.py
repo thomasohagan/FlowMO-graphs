@@ -22,7 +22,7 @@ import time
     #return tf.fill((tf.shape(X)[:-1]), tf.squeeze(self.variance))
     # see grakel source code for their k_diag function
 
-class CW(gpflow.kernels.Kernel):
+class CWgeo(gpflow.kernels.Kernel):
     def __init__(self):
         super().__init__()
         self.variance = gpflow.Parameter(1.0, transform=positive())
@@ -60,7 +60,61 @@ class CW(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
+        kernel_options = {'directed': False, 'compute_method': 'geo'}
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], **kernel_options, )
+        kernel = []
+        for i in range(len(G2)):
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
+            print(kernel_list)
+            kernel.append(kernel_list)
+
+        kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
+
+        return self.variance * kernel
+
+    def K_diag(self, X):
+        return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
+
+
+class CWexp(gpflow.kernels.Kernel):
+    def __init__(self):
+        super().__init__()
+        self.variance = gpflow.Parameter(1.0, transform=positive())
+
+    def K(self, X, X2=None):
+
+        G1 = []
+        if str(type(X[1])) == "<class 'numpy.ndarray'>":
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+        else:
+            X = X.numpy()
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G1.append(read_smiles(h))
+
+        if X2 is None:
+            G2 = G1
+
+        else:
+            G2 = []
+            if str(type(X2[1])) == "<class 'numpy.ndarray'>":
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append(read_smiles(h))
+
+            elif str(type(X2[1])) == "<class \'numpy.str_\'>":
+                for string2 in X2:
+                    G2.append(read_smiles(string2))
+
+            else:
+                X2 = X2.numpy()
+                for string2 in X2:
+                    h = string2.decode("utf-8")
+                    G2.append((read_smiles(h)))
+
+        kernel_options = {'directed': False, 'compute_method': 'exp'}
         graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(G2)):
