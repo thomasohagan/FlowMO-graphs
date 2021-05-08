@@ -399,14 +399,19 @@ class PUTH(gpflow.kernels.Kernel):
     def K_diag(self, X):
         G = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
-            for string1 in X:
-                h = string1.decode("utf-8")
+            for string2 in X:
+                h = string2.decode("utf-8")
                 G.append(read_smiles(h))
+
+        elif str(type(X[1])) == "<class \'numpy.str_\'>":
+            for string2 in X:
+                G.append(read_smiles(string2))
+
         else:
             X = X.numpy()
-            for string1 in X:
-                h = string1.decode("utf-8")
-                G.append(read_smiles(h))
+            for string2 in X:
+                h = string2.decode("utf-8")
+                G.append((read_smiles(h)))
 
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
