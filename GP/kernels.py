@@ -397,11 +397,22 @@ class PUTH(gpflow.kernels.Kernel):
     #def K_diag(self, X):
         #return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
     def K_diag(self, X):
+        G = []
+        if str(type(X[1])) == "<class 'numpy.ndarray'>":
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G.append(read_smiles(h))
+        else:
+            X = X.numpy()
+            for string1 in X:
+                h = string1.decode("utf-8")
+                G.append(read_smiles(h))
+
         kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
         graph_kernel = gklearn.kernels.PathUpToH(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
-        for i in range(len(X)):
-            kernel_list, run_time = graph_kernel.compute(X[i], X[i], verbose=2)
+        for i in range(len(G)):
+            kernel_list, run_time = graph_kernel.compute(G[i], G[i], verbose=2)
             kernel.append(kernel_list)
             kernel = tf.transpose(kernel)
 
