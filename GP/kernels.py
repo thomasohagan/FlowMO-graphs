@@ -419,9 +419,10 @@ class PUTH(gpflow.kernels.Kernel):
         for i in range(len(G)):
             kernel_list, run_time = graph_kernel.compute(G[i], G[i], verbose=2)
             kernel.append(kernel_list)
-            kernel = tf.transpose(kernel)
+
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
+        kernel = tf.transpose(kernel)
         return self.variance * kernel
 
 class WL(gpflow.kernels.Kernel):
