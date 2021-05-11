@@ -4,7 +4,6 @@
     <list default="true" id="b6af4252-6101-4f7a-a9ff-06ef26a3eb30" name="Default Changelist" comment="latest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GP/kernels.py" beforeDir="false" afterPath="$PROJECT_DIR$/GP/kernels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/predict_with_shortestpath.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +24,7 @@
   <component name="ProjectId" id="1onj3CFW2h0JGDOPZxCmogtLQOM" />
   <component name="PropertiesComponent">
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FlowMO-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
@@ -45,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.predict_with_shortestpath">
     <configuration name="gpu_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="FlowMO-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,8 +152,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.predict_with_shortestpath" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.gpu_test" />
         <item itemvalue="Python.graphkittest" />
         <item itemvalue="Python.predict_with_tanimoto" />

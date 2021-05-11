@@ -409,6 +409,7 @@ class PUTH(gpflow.kernels.Kernel):
             for string1 in X:
                 h = string1.decode("utf-8")
                 G1.append(read_smiles(h))
+
         else:
             X = X.numpy()
             for string1 in X:
