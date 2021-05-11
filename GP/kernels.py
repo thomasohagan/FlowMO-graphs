@@ -175,6 +175,7 @@ class MK(gpflow.kernels.Kernel):
             kernel.append(kernel_list)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
+        kernel = tf.transpose(kernel)
 
         return self.variance * kernel
 
