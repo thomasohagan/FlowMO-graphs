@@ -60,7 +60,7 @@ class CWgeo(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], compute_method='geo', directed=True)
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[])
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
