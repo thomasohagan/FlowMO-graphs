@@ -166,7 +166,7 @@ class MK(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
+        kernel_options = {'directed': False}
         graph_kernel = gklearn.kernels.Marginalized(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(G2)):
