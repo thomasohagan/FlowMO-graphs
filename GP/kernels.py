@@ -12,6 +12,7 @@ from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
+import networkx as nx
 
 #def K_diag(self, X):
  #   """
@@ -60,10 +61,10 @@ class CWgeo(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[])
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos=nx.is_directed(G1[0]))
         kernel = []
         for i in range(len(G2)):
-            kernel_list, run_time = gklearn.kernels.commonWalkKernel(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2, node_labels=[], edge_labels=[])
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
             print(kernel_list)
             kernel.append(kernel_list)
 
