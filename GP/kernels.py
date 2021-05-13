@@ -12,7 +12,8 @@ from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
-import networkx as nx
+from gklearn.dataset import Dataset
+import os
 
 #def K_diag(self, X):
  #   """
@@ -61,8 +62,9 @@ class CWgeo(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        Dictionary = {'directed': nx.is_directed(G1[0])}
-        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos=Dictionary)
+
+        dataset = Dataset('Alkane_unlabeled', root= os.path.dirname(os.path.realpath(__file__)) + '/' + '../../datasets/')
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos=dataset.get_dataset_infos(keys=['directed']))
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
