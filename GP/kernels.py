@@ -194,6 +194,9 @@ class RW(gpflow.kernels.Kernel):
 
     def K(self, X, X2=None):
 
+        import functools
+        from gklearn.utils.kernels import deltakernel, gaussiankernel, kernelproduct
+
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
             for string1 in X:
@@ -225,11 +228,25 @@ class RW(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
-        graph_kernel = gklearn.kernels.RandomWalk(node_labels=[], edge_labels=[], **kernel_options,)
+        mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
+        sub_kernels = {'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}
+        graph_kernel = gklearn.kernels.RandomWalk(node_labels=[],
+        						node_attrs=[],
+        						edge_labels=[],
+        						edge_attrs=[],
+        						directed=False,
+        						compute_method='sylvester',
+        						weight=1e-3,
+        						p=None,
+        						q=None,
+        						edge_weight=None,
+        						node_kernels=sub_kernels,
+        						edge_kernels=sub_kernels,
+        						sub_kernel='exp')
+
         kernel = []
         for i in range(len(G2)):
-            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
             print(kernel_list)
             kernel.append(kernel_list)
 
@@ -248,6 +265,10 @@ class SP(gpflow.kernels.Kernel):
 
     def K(self, X, X2=None):
 
+        from gklearn.utils.kernels import deltakernel, gaussiankernel, kernelproduct
+        import functools
+
+
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
             for string1 in X:
@@ -279,8 +300,14 @@ class SP(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
-        graph_kernel = gklearn.kernels.ShortestPath(node_labels=[], edge_labels=[], **kernel_options, )
+        mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
+        sub_kernels = {'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}
+
+        graph_kernel = gklearn.kernels.ShortestPath(node_labels=[],
+                                    node_attrs=[],
+                                    directed=False,
+                                    fcsp=None,
+                                    node_kernels=sub_kernels)
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered',
@@ -303,6 +330,9 @@ class SSP(gpflow.kernels.Kernel):
 
     def K(self, X, X2=None):
 
+        from gklearn.utils.kernels import deltakernel, gaussiankernel, kernelproduct
+        import functools
+
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
             for string1 in X:
@@ -334,8 +364,18 @@ class SSP(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
-        graph_kernel = gklearn.kernels.StructuralSP(node_labels=[], edge_labels=[], **kernel_options,)
+        mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
+        sub_kernels = {'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}
+
+        graph_kernel = gklearn.kernels.StructuralSP(node_labels=dataset.node_labels,
+						 edge_labels=[],
+						 node_attrs=[],
+						 edge_attrs=[],
+						 directed=False, # ds_infos=dataset.get_dataset_infos(keys=['directed']
+						 fcsp=None,
+						 node_kernels=sub_kernels,
+						 edge_kernels=sub_kernels)
+
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
@@ -357,6 +397,9 @@ class T(gpflow.kernels.Kernel):
 
     def K(self, X, X2=None):
 
+        from gklearn.utils.kernels import polynomialkernel
+        import functools
+
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
             for string1 in X:
@@ -388,8 +431,9 @@ class T(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
-        graph_kernel = gklearn.kernels.Treelet(node_labels=[], edge_labels=[], **kernel_options,)
+        pkernel = functools.partial(polynomialkernel, d=2, c=1e5)
+        kernel_options = {'directed': False}
+        graph_kernel = gklearn.kernels.Treelet(node_labels=[], edge_labels=[], sub_kernel=pkernel, **kernel_options,)
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
@@ -499,7 +543,7 @@ class WL(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'depth': 3, 'k_func': 'MinMax', 'compute_method': 'trie'}
+        kernel_options = {'directed': False, 'height': 2}
         graph_kernel = gklearn.kernels.WeisfeilerLehman(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(G2)):
