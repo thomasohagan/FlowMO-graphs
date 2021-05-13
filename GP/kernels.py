@@ -7,13 +7,12 @@ import gpflow
 from gpflow.utilities import positive
 from gpflow.utilities.ops import broadcasting_elementwise
 import tensorflow as tf
-from tensorflow_probability import bijectors as tfb
 from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
-from gklearn.dataset import dataset
-import os
+#from gklearn.dataset
+#import os
 
 #def K_diag(self, X):
  #   """
@@ -63,7 +62,7 @@ class CWgeo(gpflow.kernels.Kernel):
                     G2.append((read_smiles(h)))
 
 
-        dataset = Dataset('Alkane_unlabeled', root= os.path.dirname(os.path.realpath(__file__)) + '/' + '../../datasets/')
+        #dataset = gklearn.dataset.d('Alkane_unlabeled', root= os.path.dirname(os.path.realpath(__file__)) + '/' + '../../datasets/')
         graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos=dataset.get_dataset_infos(keys=['directed']))
         kernel = []
         for i in range(len(G2)):
