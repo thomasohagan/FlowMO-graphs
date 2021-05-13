@@ -62,7 +62,7 @@ class CWgeo(gpflow.kernels.Kernel):
                     G2.append((read_smiles(h)))
 
 
-        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos={'directed': False})
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], weight=0.01, compute_method='geo', ds_infos={'directed': False, 'name' : 'MUTAG'})
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
@@ -116,10 +116,10 @@ class CWexp(gpflow.kernels.Kernel):
                     G2.append((read_smiles(h)))
 
         kernel_options = {'compute_method': 'exp'}
-        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], ds_infos={'directed': False}, **kernel_options,)
+        graph_kernel = gklearn.kernels.CommonWalk(node_labels=[], edge_labels=[], ds_infos={'directed': False, 'name' : 'MUTAG'}, **kernel_options,)
         kernel = []
         for i in range(len(G2)):
-            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2, ds_infos={}) ##or add ds_infos here
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             print(kernel_list)
             kernel.append(kernel_list)
 
@@ -168,7 +168,7 @@ class MK(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'remove_totters' : True}
+        kernel_options = {'directed': False, 'remove_totters' : False}
         graph_kernel = gklearn.kernels.Marginalized(node_labels=[], edge_labels=[], p_quit=0.5, n_iteration=20, **kernel_options,)
         kernel = []
         for i in range(len(G2)):
@@ -226,27 +226,43 @@ class RW(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
-        sub_kernels = {'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}
-        graph_kernel = gklearn.kernels.RandomWalk(node_labels=[],
-        						node_attrs=[],
-        						edge_labels=[],
-        						edge_attrs=[],
-        						directed=False,
-        						compute_method='sylvester',
-        						weight=1e-3,
-        						p=None,
-        						q=None,
-        						edge_weight=None,
-        						node_kernels=sub_kernels,
-        						edge_kernels=sub_kernels,
-        						sub_kernel='exp')
+        #mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
+        #sub_kernels = {'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}
+        #graph_kernel = gklearn.kernels.RandomWalk(node_labels=[],
+#        						node_attrs=[],
+#       						edge_labels=[],
+#       						edge_attrs=[],
+#        						directed=False,
+#        						compute_method='sylvester',
+#        						weight=1e-3,
+#        						p=None,
+#       						q=None,
+#       						edge_weight=None,
+#       						node_kernels=sub_kernels,
+#        						edge_kernels=sub_kernels,
+#        						sub_kernel='exp')
+
+        gklearn.kernels.randomWalkKernel()
 
         kernel = []
-        for i in range(len(G2)):
-            kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
-            print(kernel_list)
-            kernel.append(kernel_list)
+        kernel_list = []
+        mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
+        sub_kernels = [{'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}]
+        for i in range(len(G1)):
+            kernel_j = []
+            for j in range(len(G2)):
+                kernel_ij, run_time = gklearn.kernels.randomwalkkernel(G1[i], G2[j], n_jobs=multiprocessing.cpu_count(), verbose=True, compute_method=compute_method,
+                                                  weight=1e-3,
+                                                  p=None,
+                                                  q=None,
+                                                  edge_weight=None,
+                                                  node_kernels=sub_kernels,
+                                                  edge_kernels=sub_kernels,
+                                                  node_label=[],
+                                                  edge_label=[],
+                                                  sub_kernel='exp',)
+                kernel_j.append(kernel_ij)
+            kernel.append(kernel_j)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -369,7 +385,7 @@ class SSP(gpflow.kernels.Kernel):
 						 edge_labels=[],
 						 node_attrs=[],
 						 edge_attrs=[],
-						 directed=False, # ds_infos=dataset.get_dataset_infos(keys=['directed']
+						 ds_infos={'directed': False, 'name' : 'MUTAG'},
 						 fcsp=None,
 						 node_kernels=sub_kernels,
 						 edge_kernels=sub_kernels)
@@ -430,8 +446,7 @@ class T(gpflow.kernels.Kernel):
                     G2.append((read_smiles(h)))
 
         pkernel = functools.partial(polynomialkernel, d=2, c=1e5)
-        kernel_options = {'directed': False}
-        graph_kernel = gklearn.kernels.Treelet(node_labels=[], edge_labels=[], sub_kernel=pkernel, ds_infos={'directed': False},)
+        graph_kernel = gklearn.kernels.Treelet(node_labels=[], edge_labels=[], sub_kernel=pkernel, ds_infos={'directed': False})
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
@@ -549,7 +564,7 @@ class WL(gpflow.kernels.Kernel):
             kernel.append(kernel_list)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
-        kernel = tf.transpose(kernel)
+        #kernel = tf.transpose(kernel)
 
         return self.variance * kernel
 
