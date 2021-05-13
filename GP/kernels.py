@@ -12,7 +12,7 @@ from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
-from gklearn.dataset import Dataset
+from gklearn.dataset.dataset import Dataset
 import os
 
 #def K_diag(self, X):
