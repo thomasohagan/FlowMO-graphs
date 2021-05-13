@@ -170,8 +170,8 @@ class MK(gpflow.kernels.Kernel):
                     h = string2.decode("utf-8")
                     G2.append((read_smiles(h)))
 
-        kernel_options = {'directed': False, 'remove_totters' : False}
-        graph_kernel = gklearn.kernels.Marginalized(node_labels=[], edge_labels=[], p_quit=0.5, n_iteration=2, **kernel_options,)
+        kernel_options = {'directed': False, 'remove_totters' : True}
+        graph_kernel = gklearn.kernels.Marginalized(node_labels=[], edge_labels=[], p_quit=0.5, n_iteration=20, **kernel_options,)
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
