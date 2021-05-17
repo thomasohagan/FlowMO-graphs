@@ -2,7 +2,10 @@ from property_prediction.predict_with_graph_kernel import main as predict
 import os
 import re
 
-directory = os.fsencode('FlowMO-graphs/datasets')
+#directory = os.fsencode('FlowMO-graphs/datasets')
+
+directory = 'FlowMO-graphs/datasets'
+#string1.decode("utf-8")
 
 GRAPH_KERNELS = {'CW', 'MK', 'SP', 'SSP', 'T', 'PUTH', 'WL'}
 
