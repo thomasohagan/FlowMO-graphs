@@ -184,8 +184,7 @@ class RW(gpflow.kernels.Kernel):
         kernel = []
         mixkernel = functools.partial(kernelproduct, deltakernel, gaussiankernel)
         sub_kernels = [{'symb': deltakernel, 'nsymb': gaussiankernel, 'mix': mixkernel}]
-        graph_kernel = gklearn.kernels.RandomWalk(compute_method='sylvester',
-                                                  weight=1e-3,
+        graph_kernel = gklearn.kernels.RandomWalk(weight=1e-3,
                                                   p=None,
                                                   q=None,
                                                   edge_weight=None,
