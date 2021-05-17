@@ -4,7 +4,7 @@ import re
 
 #directory = os.fsencode('FlowMO-graphs/datasets')
 
-directory = 'FlowMO-graphs/datasets'
+directory = '/home/thomas/FlowMO-graphs/datasets/'
 #string1.decode("utf-8")
 
 GRAPH_KERNELS = {'CW', 'MK', 'SP', 'SSP', 'T', 'PUTH', 'WL'}
