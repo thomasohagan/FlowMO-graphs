@@ -17,3 +17,6 @@ for graph_kernel in GRAPH_KERNELS:
         task = m.group(1)
         path = 'FlowMO-graphs/datasets/', str(filename)
         predict(path=path, task=task, n_trials=1, test_set_size=0.2, use_rmse_conf=True, kernel=graph_kernel, N=20)
+        print('path=', path)
+        print('\ntask=', task)
+        print('\ngraph_kernel', graph_kernel)

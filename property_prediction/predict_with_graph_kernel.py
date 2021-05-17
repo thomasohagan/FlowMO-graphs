@@ -237,6 +237,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
         #plt.savefig('property_prediction/' + task + '/results/graph_kernel/{}_confidence_curve_mae.png'.format(kernel))
         #plt.show()
 
+####### try /home/thomas
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
