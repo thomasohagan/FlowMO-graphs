@@ -36,8 +36,8 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     smiles_list, y = data_loader.load_property_data()
 
     # List truncation for faster computation
-    smiles_list = smiles_list[0 : N]
-    y = y[0 : N]
+    #smiles_list = smiles_list[0 : N]
+    #y = y[0 : N]
 
     m = None
 
