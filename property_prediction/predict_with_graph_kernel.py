@@ -211,7 +211,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
         plt.ylim([0, np.max(upper) + 1])
         plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
         plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
-        plt.savefig('../' + task + '/results/graph_kernel/{}_confidence_curve_rmse.png'.format(kernel))
+        plt.savefig('./' + task + 'property_prediction/results/graph_kernel/{}_confidence_curve_rmse.png'.format(kernel))
         plt.show()
 
     else:
@@ -234,7 +234,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
         plt.ylim([0, np.max(upper) + 1])
         plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
         plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
-        plt.savefig('../' + task + '/results/graph_kernel/{}_confidence_curve_mae.png'.format(kernel))
+        plt.savefig('./' + task + 'property_prediction/results/graph_kernel/{}_confidence_curve_mae.png'.format(kernel))
         plt.show()
 
 
