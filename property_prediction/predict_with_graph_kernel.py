@@ -82,6 +82,8 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
             X_train = np.asarray(X_train)
             X_test = np.asarray(X_test)
 
+            print('kernel is ', kernel)
+
             if kernel == 'PUTH':
                 k = GP.kernels.PUTH()
 

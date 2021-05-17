@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6af4252-6101-4f7a-a9ff-06ef26a3eb30" name="Default Changelist" comment="latest">
-      <change beforePath="$PROJECT_DIR$/property_prediction/graph_kernels_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/graph_kernels_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/property_prediction/predict_with_graph_kernel.py" beforeDir="false" afterPath="$PROJECT_DIR$/property_prediction/predict_with_graph_kernel.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
