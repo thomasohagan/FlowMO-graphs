@@ -88,14 +88,8 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
             elif kernel == 'CommonWalkGeo':
                 k = GP.kernels.CWgeo()
 
-            elif kernel == 'CommonWalkExp':
-                k = GP.kernels.CWexp()
-
             elif kernel == 'MarginalizedKernel':
                 k = GP.kernels.MK()
-
-            elif kernel == 'RandomWalk':
-                k = GP.kernels.RW()
 
             elif kernel == 'ShortestPath':
                 k = GP.kernels.SP()
