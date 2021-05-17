@@ -189,52 +189,52 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     confidence_percentiles = np.arange(1e-14, 100, 100 / len(
         y_test))  # 1e-14 instead of 0 to stop weirdness with len(y_test) = 29
 
-    if use_rmse_conf:
+    #if use_rmse_conf:
 
-        rmse_mean = np.mean(rmse_confidence_list, axis=0)
-        rmse_std = np.std(rmse_confidence_list, axis=0)
+        #rmse_mean = np.mean(rmse_confidence_list, axis=0)
+        #rmse_std = np.std(rmse_confidence_list, axis=0)
 
         # We flip because we want the most confident predictions on the right-hand side of the plot
 
-        rmse_mean = np.flip(rmse_mean)
-        rmse_std = np.flip(rmse_std)
+        #rmse_mean = np.flip(rmse_mean)
+        #rmse_std = np.flip(rmse_std)
 
         # One-sigma error bars
 
-        lower = rmse_mean - rmse_std
-        upper = rmse_mean + rmse_std
+        #lower = rmse_mean - rmse_std
+        #upper = rmse_mean + rmse_std
 
-        plt.plot(confidence_percentiles, rmse_mean, label='mean')
-        plt.fill_between(confidence_percentiles, lower, upper, alpha=0.2)
-        plt.xlabel('Confidence Percentile')
-        plt.ylabel('RMSE')
-        plt.ylim([0, np.max(upper) + 1])
-        plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
-        plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
-        plt.savefig('/home/thomas/FlowMO-graphs/property_prediction/' + task + '/results/graph_kernel/{}_confidence_curve_rmse.png'.format(kernel))
+        #plt.plot(confidence_percentiles, rmse_mean, label='mean')
+        #plt.fill_between(confidence_percentiles, lower, upper, alpha=0.2)
+        #plt.xlabel('Confidence Percentile')
+        #plt.ylabel('RMSE')
+        #plt.ylim([0, np.max(upper) + 1])
+        #plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
+        #plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
+        #plt.savefig('/home/thomas/FlowMO-graphs/property_prediction/' + task + '/results/graph_kernel/{}_confidence_curve_rmse.png'.format(kernel))
         #plt.show()
 
-    else:
+    #else:
 
         # We plot the Mean-absolute error confidence-error curves
 
-        mae_mean = np.mean(mae_confidence_list, axis=0)
-        mae_std = np.std(mae_confidence_list, axis=0)
+        #mae_mean = np.mean(mae_confidence_list, axis=0)
+        #mae_std = np.std(mae_confidence_list, axis=0)
 
-        mae_mean = np.flip(mae_mean)
-        mae_std = np.flip(mae_std)
+        #mae_mean = np.flip(mae_mean)
+        #mae_std = np.flip(mae_std)
 
         lower = mae_mean - mae_std
         upper = mae_mean + mae_std
 
-        plt.plot(confidence_percentiles, mae_mean, label='mean')
-        plt.fill_between(confidence_percentiles, lower, upper, alpha=0.2)
-        plt.xlabel('Confidence Percentile')
-        plt.ylabel('MAE')
-        plt.ylim([0, np.max(upper) + 1])
-        plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
-        plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
-        plt.savefig('/home/thomas/FlowMO-graphs/property_prediction/' + task + '/results/graph_kernel/{}_confidence_curve_mae.png'.format(kernel))
+        #plt.plot(confidence_percentiles, mae_mean, label='mean')
+        #plt.fill_between(confidence_percentiles, lower, upper, alpha=0.2)
+        #plt.xlabel('Confidence Percentile')
+        #plt.ylabel('MAE')
+        #plt.ylim([0, np.max(upper) + 1])
+        #plt.xlim([0, 100 * ((len(y_test) - 1) / len(y_test))])
+        #plt.yticks(np.arange(0, np.max(upper) + 1, 5.0))
+        #plt.savefig('/home/thomas/FlowMO-graphs/property_prediction/' + task + '/results/graph_kernel/{}_confidence_curve_mae.png'.format(kernel))
         #plt.show()
 
 
