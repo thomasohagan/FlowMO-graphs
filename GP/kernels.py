@@ -194,7 +194,7 @@ class RW(gpflow.kernels.Kernel):
                                                   edge_label=[],
                                                   sub_kernel='exp',)
         for i in range(len(G2)):
-            kernel_list, run_time = graph_kernel.compute(G1, G2[i], n_jobs=multiprocessing.cpu_count(), verbose=True)
+            kernel_list, run_time = graph_kernel.compute(G1, G2[i], compute_method='sylvester', n_jobs=multiprocessing.cpu_count(), verbose=True)
             kernel.append(kernel_list)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
