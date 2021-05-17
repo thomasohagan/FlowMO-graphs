@@ -15,7 +15,7 @@ for graph_kernel in GRAPH_KERNELS:
         filename = os.fsdecode(file)
         m = re.search('(.+?).csv', str(filename))
         task = m.group(1)
-        path = 'FlowMO-graphs/datasets/', str(filename)
+        path = '/home/thomas/FlowMO-graphs/datasets/' + str(filename)
         print('path=', path)
         print('\ntask=', task)
         print('\ngraph_kernel', graph_kernel)
