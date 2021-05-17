@@ -87,22 +87,22 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
             if kernel == 'PUTH':
                 k = GP.kernels.PUTH()
 
-            elif kernel == 'CommonWalkGeo':
+            elif kernel == 'CW':
                 k = GP.kernels.CWgeo()
 
-            elif kernel == 'MarginalizedKernel':
+            elif kernel == 'MK':
                 k = GP.kernels.MK()
 
-            elif kernel == 'ShortestPath':
+            elif kernel == 'SP':
                 k = GP.kernels.SP()
 
-            elif kernel == 'StructuralShortestPath':
+            elif kernel == 'SSP':
                 k = GP.kernels.SSP()
 
-            elif kernel == 'Treelet':
+            elif kernel == 'T':
                 k = GP.kernels.T()
 
-            elif kernel == 'WeisfeilerLehman':
+            elif kernel == 'WL':
                 k = GP.kernels.WL()
 
 
