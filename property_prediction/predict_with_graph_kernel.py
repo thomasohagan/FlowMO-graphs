@@ -224,8 +224,8 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
         #mae_mean = np.flip(mae_mean)
         #mae_std = np.flip(mae_std)
 
-        lower = mae_mean - mae_std
-        upper = mae_mean + mae_std
+        #lower = mae_mean - mae_std
+        #upper = mae_mean + mae_std
 
         #plt.plot(confidence_percentiles, mae_mean, label='mean')
         #plt.fill_between(confidence_percentiles, lower, upper, alpha=0.2)
