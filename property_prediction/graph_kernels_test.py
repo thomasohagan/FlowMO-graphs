@@ -17,5 +17,7 @@ for graph_kernel in GRAPH_KERNELS:
         task = m.group(1)
         path = '/home/thomas/FlowMO-graphs/datasets/' + str(filename)
         if not (graph_kernel == 'SP' and filename == 'ESOL'):
-            predict(path=path, task=task, n_trials=1, test_set_size=0.2, use_rmse_conf=True, kernel=graph_kernel, N=20)
+            if not graph_kernel == 'WL':
+                predict(path=path, task=task, n_trials=1, test_set_size=0.2, use_rmse_conf=True, kernel=graph_kernel, N=20)
+                print('Completed ', graph_kernel, ' on ', filename)
 
