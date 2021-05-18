@@ -11,9 +11,6 @@ from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
-import networkx as nx
-import numpy as np
-
 
 class CWgeo(gpflow.kernels.Kernel):
     def __init__(self):
@@ -21,6 +18,15 @@ class CWgeo(gpflow.kernels.Kernel):
         self.variance = gpflow.Parameter(1.0, transform=positive())
 
     def K(self, X, X2=None):
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -58,8 +64,8 @@ class CWgeo(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=True)
-            print(kernel_list)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -76,6 +82,15 @@ class MK(gpflow.kernels.Kernel):
         self.variance = gpflow.Parameter(1.0, transform=positive())
 
     def K(self, X, X2=None):
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -113,8 +128,8 @@ class MK(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print(kernel_list)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -134,6 +149,15 @@ class SP(gpflow.kernels.Kernel):
 
         from gklearn.utils.kernels import deltakernel, gaussiankernel, kernelproduct
         import functools
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
 
         G1 = []
@@ -179,8 +203,8 @@ class SP(gpflow.kernels.Kernel):
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered',
                                                          n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print(kernel_list)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -200,6 +224,15 @@ class SSP(gpflow.kernels.Kernel):
 
         from gklearn.utils.kernels import deltakernel, gaussiankernel, kernelproduct
         import functools
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -247,8 +280,8 @@ class SSP(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print(kernel_list)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -267,6 +300,15 @@ class T(gpflow.kernels.Kernel):
 
         from gklearn.utils.kernels import polynomialkernel
         import functools
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -304,8 +346,8 @@ class T(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print(kernel_list)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -322,6 +364,15 @@ class PUTH(gpflow.kernels.Kernel):
         self.variance = gpflow.Parameter(1.0, transform=positive())
 
     def K(self, X, X2=None):
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -360,8 +411,8 @@ class PUTH(gpflow.kernels.Kernel):
         kernel = []
         for i in range(len(G2)):
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
-            print("\nLoop", i)
             kernel.append(kernel_list)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
@@ -378,6 +429,15 @@ class WL(gpflow.kernels.Kernel):
         self.variance = gpflow.Parameter(1.0, transform=positive())
 
     def K(self, X, X2=None):
+
+        if X[0] == 'CN(C)C(=O)c1ccc(cc1)OC':
+            dataset = 'FreeSolv'
+
+        elif X[0] == 'Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14':
+            dataset = 'Lipophilicity'
+
+        else:
+            dataset = 'ESOL'
 
         G1 = []
         if str(type(X[1])) == "<class 'numpy.ndarray'>":
@@ -414,10 +474,9 @@ class WL(gpflow.kernels.Kernel):
         graph_kernel = gklearn.kernels.WeisfeilerLehman(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(G2)):
-            start_time = time.time()
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             kernel.append(kernel_list)
-            print('time for loop ', i, "is: ", time.time() - start_time)
+            print('loop ', i, 'of ', self.__class__.__name__, ' on ', dataset)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
