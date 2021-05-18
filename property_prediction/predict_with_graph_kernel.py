@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from property_prediction.data_utils import TaskDataLoader
 import GP.kernels
+import time
 
 #config = tf.compat.v1.ConfigProto()
 #config.gpu_options.allow_growth = True
@@ -32,6 +33,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     :param kernel: str specifying the kernel to be used. One of ['ShortestPath', ]
     """
 
+    start_time = time.time()
     data_loader = TaskDataLoader(task, path)
     smiles_list, y = data_loader.load_property_data()
 
@@ -179,6 +181,7 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     outF.write("\n")
     outF.write("\nDataset: {}".format(task))
     outF.write("\nKernel: {}".format(kernel))
+    outF.write("\nTime taken: {}".format(time.time() - start_time))
     outF.write("\nmean R^2: {:.4f} +- {:.4f}".format(np.mean(r2_list), np.std(r2_list) / np.sqrt(len(r2_list))))
     outF.write(
         "\nmean RMSE: {:.4f} +- {:.4f}".format(np.mean(rmse_list), np.std(rmse_list) / np.sqrt(len(rmse_list))))
@@ -255,7 +258,7 @@ if __name__ == '__main__':
     parser.add_argument('-rms', '--use_rmse_conf', type=bool, default=True,
                         help='bool specifying whether to compute the rmse confidence-error curves or the mae '
                              'confidence-error curves. True is the option for rmse.')
-    parser.add_argument('-k', '--kernel', type=str, default='PUTH',
+    parser.add_argument('-k', '--kernel', type=str, default='WL',
                         help='str specifying the kernel to be used. One of [ShortestPath, ]')
     parser.add_argument('-N', '--N', type=int, default='20',
                         help='smiles list')

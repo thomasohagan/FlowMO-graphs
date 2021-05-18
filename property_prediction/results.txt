@@ -5,3 +5,10 @@ Kernel: PUTH
 mean R^2: -4.8497 +- 0.0000
 mean RMSE: 0.4112 +- 0.0000
 mean MAE: 0.3744 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: SPW
+mean R^2: -0.0020 +- 0.0000
+mean RMSE: 1.9161 +- 0.0000
+mean MAE: 1.5167 +- 0.0000

@@ -11,6 +11,8 @@ from pysmiles import read_smiles
 import gklearn.kernels
 import multiprocessing
 import time
+import networkx as nx
+import numpy as np
 
 
 class CWgeo(gpflow.kernels.Kernel):
@@ -187,6 +189,7 @@ class SP(gpflow.kernels.Kernel):
 
     def K_diag(self, X):
         return tf.fill((tf.shape(X)), tf.squeeze(self.variance))
+
 
 class SSP(gpflow.kernels.Kernel):
     def __init__(self):
