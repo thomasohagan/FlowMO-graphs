@@ -414,8 +414,10 @@ class WL(gpflow.kernels.Kernel):
         graph_kernel = gklearn.kernels.WeisfeilerLehman(node_labels=[], edge_labels=[], **kernel_options,)
         kernel = []
         for i in range(len(G2)):
+            start_time = time.time()
             kernel_list, run_time = graph_kernel.compute(G1, G2[i], parallel='imap_unordered', n_jobs=multiprocessing.cpu_count(), verbose=2)
             kernel.append(kernel_list)
+            print('time for loop ', i, "is: ", time.time() - start_time)
 
         kernel = tf.convert_to_tensor(kernel, dtype=tf.float64)
         kernel = tf.transpose(kernel)
