@@ -38,8 +38,8 @@ def main(path, task, n_trials, test_set_size, use_rmse_conf, kernel, N):
     smiles_list, y = data_loader.load_property_data()
 
     # List truncation for faster computation
-    #smiles_list = smiles_list[0 : N]
-    #y = y[0 : N]
+    smiles_list = smiles_list[0 : N]
+    y = y[0 : N]
 
     m = None
 
@@ -260,7 +260,7 @@ if __name__ == '__main__':
                              'confidence-error curves. True is the option for rmse.')
     parser.add_argument('-k', '--kernel', type=str, default='WL',
                         help='str specifying the kernel to be used. One of [ShortestPath, ]')
-    parser.add_argument('-N', '--N', type=int, default='20',
+    parser.add_argument('-N', '--N', type=int, default='300',
                         help='smiles list')
 
     args = parser.parse_args()
