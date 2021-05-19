@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6af4252-6101-4f7a-a9ff-06ef26a3eb30" name="Default Changelist" comment="latest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GP/kernels.py" beforeDir="false" afterPath="$PROJECT_DIR$/GP/kernels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/ESOL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/ESOL.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predict_with_graph_kernel">
+  <component name="RunManager" selected="Python.number of nodes">
     <configuration name="gpu_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="FlowMO-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -66,7 +66,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="graphkittest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="number of nodes" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="FlowMO-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -78,7 +78,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/property_prediction/graphkittest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/property_prediction/number of nodes.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,11 +152,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.number of nodes" />
         <item itemvalue="Python.predict_with_graph_kernel" />
         <item itemvalue="Python.predict_with_shortestpath" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.gpu_test" />
-        <item itemvalue="Python.graphkittest" />
       </list>
     </recent_temporary>
   </component>
