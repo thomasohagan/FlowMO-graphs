@@ -1,0 +1,166 @@
+
+
+Dataset: Photoswitch
+Kernel: SSP
+mean R^2: nan +- nan
+mean RMSE: nan +- nan
+mean MAE: nan +- nan
+
+
+Dataset: ESOL
+Kernel: SP
+mean R^2: 0.1915 +- 0.0000
+mean RMSE: 1.7212 +- 0.0000
+mean MAE: 1.3357 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: PUTH
+Time taken: 10.070985794067383
+mean R^2: -35.4745 +- 0.0000
+mean RMSE: 1.0267 +- 0.0000
+mean MAE: 1.0267 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: MK
+Time taken: 10554.490114688873
+mean R^2: -0.0301 +- 0.0000
+mean RMSE: 1.8260 +- 0.0000
+mean MAE: 1.4463 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: MK
+Time taken: 4084.082629442215
+mean R^2: -0.0025 +- 0.0000
+mean RMSE: 2.7014 +- 0.0000
+mean MAE: 2.0029 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: MK
+Time taken: 45097.46003460884
+mean R^2: -0.0106 +- 0.0000
+mean RMSE: 1.1734 +- 0.0000
+mean MAE: 0.8990 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: SP
+Time taken: 1964.705049753189
+mean R^2: 0.1258 +- 0.0000
+mean RMSE: 1.6821 +- 0.0000
+mean MAE: 1.3651 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: SP
+Time taken: 564.7230658531189
+mean R^2: 0.0483 +- 0.0000
+mean RMSE: 2.6321 +- 0.0000
+mean MAE: 2.1267 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: SP
+Time taken: 16440.96344423294
+mean R^2: -0.7474 +- 0.0000
+mean RMSE: 1.5429 +- 0.0000
+mean MAE: 1.1673 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: CW
+Time taken: 5287.89370059967
+mean R^2: 0.2313 +- 0.0000
+mean RMSE: 1.5773 +- 0.0000
+mean MAE: 1.3199 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: CW
+Time taken: 1832.6667613983154
+mean R^2: 0.2092 +- 0.0000
+mean RMSE: 2.3993 +- 0.0000
+mean MAE: 1.8476 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: CW
+Time taken: 36281.27760601044
+mean R^2: 0.0093 +- 0.0000
+mean RMSE: 1.1618 +- 0.0000
+mean MAE: 0.9037 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: T
+Time taken: 3681.627878189087
+mean R^2: -3.5723 +- 0.0000
+mean RMSE: 3.8469 +- 0.0000
+mean MAE: 1.7349 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: T
+Time taken: 1791.3392097949982
+mean R^2: -3.5228 +- 0.0000
+mean RMSE: 5.7379 +- 0.0000
+mean MAE: 3.7500 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: T
+Time taken: 8735.585325479507
+mean R^2: -0.3463 +- 0.0000
+mean RMSE: 1.3543 +- 0.0000
+mean MAE: 1.0651 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: SSP
+Time taken: 10574.001983880997
+mean R^2: 0.4684 +- 0.0000
+mean RMSE: 1.3117 +- 0.0000
+mean MAE: 1.0275 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: SSP
+Time taken: 1919.260337114334
+mean R^2: 0.1524 +- 0.0000
+mean RMSE: 2.4840 +- 0.0000
+mean MAE: 1.9326 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: SSP
+Time taken: 126836.62861824036
+mean R^2: 0.0604 +- 0.0000
+mean RMSE: 1.1314 +- 0.0000
+mean MAE: 0.8706 +- 0.0000
+
+
+Dataset: ESOL
+Kernel: PUTH
+Time taken: 1070.3301355838776
+mean R^2: 0.3364 +- 0.0000
+mean RMSE: 1.4655 +- 0.0000
+mean MAE: 1.1478 +- 0.0000
+
+
+Dataset: FreeSolv
+Kernel: PUTH
+Time taken: 648.4341175556183
+mean R^2: 0.0468 +- 0.0000
+mean RMSE: 2.6342 +- 0.0000
+mean MAE: 2.0646 +- 0.0000
+
+
+Dataset: Lipophilicity
+Kernel: PUTH
+Time taken: 2185.269939661026
+mean R^2: 0.0413 +- 0.0000
+mean RMSE: 1.1429 +- 0.0000
+mean MAE: 0.8878 +- 0.0000
